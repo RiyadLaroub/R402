@@ -33,5 +33,6 @@ public class VoitureTest {
         v3.setId(95);
         String attendu="Car{" +"marque='" + "Tesla" + '\'' +", prix=" + 50000 +", id=" + 95 +'}';
         assertEquals(v3.toString(),attendu);
+        assertEquals(v3.getMarque(),"Tesla");
     }
 }
