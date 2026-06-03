@@ -28,10 +28,10 @@ class WebTests {
     @Autowired
     MockMvc mockMvc;
 
-    // static import of MockMvcRequestBuilders.* and MockMvcResultMatchers.*
+    
 
     @Test
-    void statistiquesVoitureAccessibles() throws Exception { // vérifie que GET /statistique retourne 200 avec le bon prix moyen et nombre de voitures
+    void statistiquesVoitureAccessibles() throws Exception { 
         when(statistiqueImpl.prixMoyen()).thenReturn(new Echantillon(2, 15000));
 
         mockMvc.perform(get("/statistique"))
@@ -41,7 +41,7 @@ class WebTests {
     }
 
     @Test
-    void aucuneVoiture() throws Exception { // vérifie que GET /statistique retourne 400 quand la liste est vide
+    void aucuneVoiture() throws Exception { 
         when(statistiqueImpl.prixMoyen()).thenThrow(ArithmeticException.class);
 
         mockMvc.perform(get("/statistique"))
@@ -49,7 +49,7 @@ class WebTests {
     }
 
     @Test
-    void postVoitureFonctionne() throws Exception { // vérifie que POST /voiture accepte le JSON et retourne 200
+    void postVoitureFonctionne() throws Exception { 
         String voitureJson = "{\"marque\":\"Renault\",\"prix\":10000}";
 
         mockMvc.perform(post("/voiture")
