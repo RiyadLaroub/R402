@@ -27,33 +27,33 @@ class WebTests {
     @Autowired
     MockMvc mockMvc;
 
-    @Test
+     @Test
     void testCreerVoiture() throws Exception {
         mockMvc.perform(post("/voiture")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"marque\":\"f\",\"prix\":100}"))
-                .andExpect(status().isOk());
-
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"marque\":\"f\",\"prix\":100}"))
+        .andExpect(status().isOk());
+       
         verify(statistiqueImpl, times(1)).ajouter(any(Voiture.class));
     }
-
+      
     @Test
-    void testGetStatistiques() throws Exception {
-        Echantillon echantillon = new Echantillon(1, 100);
-        when(statistiqueImpl.prixMoyen()).thenReturn(echantillon);
+      void testGetStatistiques() throws Exception {
+            Echantillon echantillon = new Echantillon(1, 100);
+            when(statistiqueImpl.prixMoyen()).thenReturn(echantillon);
+            mockMvc.perform(get("/statistique"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.nombreDeVoitures").value(1))
+            .andExpect(jsonPath("$.prixMoyen").value(100));
+        }
+      
+        @Test
+          void testGetStatistiquesEmpty() throws Exception {
+            when(statistiqueImpl.prixMoyen()).thenThrow(new ArithmeticException());
+            mockMvc.perform(get("/statistique"))
+            .andExpect(status().isBadRequest());
+       }
 
-        mockMvc.perform(get("/statistique"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nombreDeVoitures").value(1))
-                .andExpect(jsonPath("$.prixMoyen").value(100));
-    }
-
-    @Test
-    void testGetStatistiquesEmpty() throws Exception {
-        when(statistiqueImpl.prixMoyen()).thenThrow(new ArithmeticException());
-
-        mockMvc.perform(get("/statistique"))
-                .andExpect(status().isBadRequest());
-    }
+  
 
 }
