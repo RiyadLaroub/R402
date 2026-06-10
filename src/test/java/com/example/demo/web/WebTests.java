@@ -63,14 +63,14 @@ class WebTests {
     @Test
     void testGetStatistiquesFormat() throws Exception {
         // Simulation d'une réponse avec des valeurs précises
-        when(statistiqueImpl.prixMoyen()).thenReturn(new Echantillon(5, 20000.5));
+        when(statistiqueImpl.prixMoyen()).thenReturn(new Echantillon(5, 20000));
 
         mockMvc.perform(get("/statistique")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.nombreDeVoitures").value(5))
-                .andExpect(jsonPath("$.prixMoyen").value(20000.5))
+                .andExpect(jsonPath("$.prixMoyen").value(20000))
                 .andDo(print()); // Affiche la réponse dans la console pour déboguer
     }
 
