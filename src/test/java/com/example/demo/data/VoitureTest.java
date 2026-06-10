@@ -31,6 +31,7 @@ public class VoitureTest {
         assertEquals(v.getPrix(),5000);
         assertEquals(v.getId(),1);
         assertEquals(v.getMarque(),"Opel");
+    }
 
     @Test
     void modifierMarque() { // vérifie que setMarque met bien à jour la marque de la voiture
