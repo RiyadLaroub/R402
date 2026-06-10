@@ -38,7 +38,10 @@ public class StatistiqueTests {
     @Test
     void ajouterVoitureAppeleBien() { // vérifie que la méthode ajouter est bien appelée une fois avec la voiture passée en paramètre
         Voiture v = new Voiture("Renault", 10000);
+        assertEquals(10000, v.getPrix());
         statistiqueImpl.ajouter(v);
         verify(statistiqueImpl, times(1)).ajouter(v);
+
+
     }
 }
